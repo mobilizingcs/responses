@@ -312,6 +312,13 @@ function Ohmage(app, client){
 		})
 	}
 
+	oh.response.delete = function(urn, survey_key){
+		return oh.call("/survey_response/delete", {
+			campaign_urn : urn,
+			survey_key : survey_key
+		})
+	}
+
 	//@args document_name
 	//@args privacy_state
 	//@args document_class_role_list

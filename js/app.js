@@ -33,13 +33,22 @@ $(function(){
     oh.user.whoami().done(function(username){
         oh.response.read(urn).done(function(data){
             $.each(data, function(i, value){
-                console.log(value)
                 var tr = $("<tr>").appendTo(tbody);
                 $("<td>").text(value.timestamp).appendTo(tr);
                 $("<td>").text(value.user).appendTo(tr);
                 $("<td>").text(value.survey_title).appendTo(tr);
                 $("<td>").text(value.privacy_state).appendTo(tr);
-                $("<td>").text("").appendTo(tr);
+
+                var btn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
+                    e.preventDefault()
+                    oh.response.delete(urn, value.survey_key).done(function(){
+                        tr.hide("slow", function(){
+                            console.log("Response " + value.survey_key + " deleted!");
+                        });
+                    });
+                })
+
+                $("<td>").appendTo(tr).append(btn);
             });
             initTable();
         });
