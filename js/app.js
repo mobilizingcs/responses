@@ -45,19 +45,24 @@ $(function(){
                 /* shared/private switch */
                 var shared = $('<input type="checkbox" />');
                 $("<td>").appendTo(tr).append(shared);
-                shared.bootstrapSwitch({
+                shared.prop('checked', value.privacy_state == "shared").bootstrapToggle({
                     size: "small", 
-                    onColor: "success", 
-                    offColor: "default", 
-                    onText: "shared", 
-                    offText: "private",
-                    state: value.privacy_state == "shared",
-                    onSwitchChange: function(event, state){
-                        oh.response.update(urn, value.survey_key, state).fail(function(){
-                           shared.bootstrapSwitch("state", !state)
-                        });
-                    }
-                })
+                    onstyle: "success", 
+                    offstyle: "default", 
+                    on: "shared", 
+                    off: "private"
+                });
+
+
+
+                /* change event */
+                shared.change(function(){
+                    var state = shared.prop('checked');
+                    oh.response.update(urn, value.survey_key, state).fail(function(){
+                        shared.prop('checked', !state)
+                    });
+                });
+
 
                 /* delete button */
                 var delbtn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
