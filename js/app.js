@@ -34,25 +34,41 @@ $(function(){
         oh.response.read(urn).done(function(data){
             $.each(data, function(i, value){
 
-                //to skip responses from other users:
-                //if(username != user) return;
+                //to filter responses from current user:
+                //if(username != value.user) return;
 
                 var tr = $("<tr>").appendTo(tbody);
                 $("<td>").text(value.timestamp).appendTo(tr);
                 $("<td>").text(value.user).appendTo(tr);
                 $("<td>").text(value.survey_title).appendTo(tr);
-                $("<td>").text(value.privacy_state).appendTo(tr);
 
-                var btn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
+                /* shared/private switch */
+                var shared = $('<input type="checkbox" />');
+                $("<td>").appendTo(tr).append(shared);
+                shared.bootstrapSwitch({
+                    size: "small", 
+                    onColor: "success", 
+                    offColor: "default", 
+                    onText: "shared", 
+                    offText: "private",
+                    state: value.privacy_state == "shared",
+                    onSwitchChange: function(event, state){
+                        oh.response.update(urn, value.survey_key, state).fail(function(){
+                           shared.bootstrapSwitch("state", !state)
+                        });
+                    }
+                })
+
+                /* delete button */
+                var delbtn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
                     e.preventDefault()
                     oh.response.delete(urn, value.survey_key).done(function(){
                         tr.hide("slow", function(){
                             console.log("Response " + value.survey_key + " deleted!");
                         });
                     });
-                })
-
-                $("<td>").appendTo(tr).append(btn);
+                })                
+                $("<td>").appendTo(tr).append(delbtn);
             });
             initTable();
         });

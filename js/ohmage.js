@@ -319,6 +319,14 @@ function Ohmage(app, client){
 		})
 	}
 
+	oh.response.update = function(urn, survey_key, state){
+		return oh.call("/survey_response/update", {
+			campaign_urn : urn,
+			survey_key : survey_key,
+			privacy_state : (state ? "shared" : "private")
+		});
+	}
+
 	//@args document_name
 	//@args privacy_state
 	//@args document_class_role_list
