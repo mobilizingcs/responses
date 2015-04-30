@@ -33,6 +33,10 @@ $(function(){
     oh.user.whoami().done(function(username){
         oh.response.read(urn).done(function(data){
             $.each(data, function(i, value){
+
+                //to skip responses from other users:
+                //if(username != user) return;
+
                 var tr = $("<tr>").appendTo(tbody);
                 $("<td>").text(value.timestamp).appendTo(tr);
                 $("<td>").text(value.user).appendTo(tr);
@@ -63,5 +67,14 @@ $(function(){
                { 'bSortable': false, 'aTargets': [ 4 ] }
             ]
         });
+    }
+
+    function message(msg, type){
+        // type must be one of success, info, warning, danger
+        type = type || "danger"
+        $("#errordiv").empty().append('<div class="alert alert-' + type + '"><a href="#" class="close" data-dismiss="alert">&times;</a>' + msg + '</div>');
+        $('html, body').animate({
+           scrollTop: 100
+        }, 200);
     }
 });
