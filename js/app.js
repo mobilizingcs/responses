@@ -26,7 +26,7 @@ $(function(){
 
     //redirect to manager of no campaign is specified
     if(!urn.match(/^urn/)){
-        location.replace("../manager")
+        location.replace("../campaign_mgmt")
     }
 
     //populate table
