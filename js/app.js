@@ -90,6 +90,7 @@ $(function(){
 
     function showmodal(survey){
         $("#modaltbody").empty();
+        $(".modal-title").html("Response by <u>" + survey.user + "</u> at " + survey.timestamp);
         $("#modalphoto img").attr("src", "images/nophoto.jpg")
         $.each(survey.responses, function(key, value){
             switch (value["prompt_type"]) {
