@@ -1,0 +1,9 @@
+#modalphoto {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+#modalphoto img {
+    height: 300px;
+    max-width: 600px;
+}
