@@ -76,7 +76,7 @@ $(function(){
                 /* delete button */
                 var delbtn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
                     e.preventDefault()
-                    if(!confirm("Are you sure you want to delete this response? This can not be undone."))
+                    if(!confirm("Delete the response from " + value.user + " (" + value.timestamp + ")? This can not be undone."))
                         return
                     oh.response.delete(urn, value.survey_key).done(function(){
                         tr.hide("slow", function(){
