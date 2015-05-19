@@ -127,7 +127,9 @@ $(function(){
                 return getMultiChoiceValue(value);  
             case "video":
             case "audio":
-                return $("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"]) 
+                return $("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"])
+            case "document":
+                return $("<a>").text("download").attr("href", "/app/document/read/contents?client=" + client + "&document_id=" + value["prompt_response"])                 
             default:
                 console.log(value)
         }
