@@ -99,6 +99,13 @@ $(function(){
                 case "photo":
                     $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])
                     break;
+                case "video":
+                case "audio":
+                    $("<tr/>")
+                    .appendTo("#modaltbody")
+                    .append($("<td/>").text(value["prompt_text"]))
+                    .append($("<td/>").append($("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"]))) 
+                    break;  
                 default:
                     $("<tr/>")
                     .appendTo("#modaltbody")
@@ -123,7 +130,7 @@ $(function(){
                 return getSingleChoiceValue(value);
             case "multi_choice":
             case "multi_choice_custom":
-                return getMultiChoiceValue(value);              
+                return getMultiChoiceValue(value);       
             default:
                 console.log(value)
         }
