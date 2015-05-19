@@ -97,7 +97,8 @@ $(function(){
         $.each(survey.responses, function(key, value){
             switch (value["prompt_type"]) {
                 case "photo":
-                    $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])
+                    if(["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) < 0)
+                        $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])
                     break;
                 default:
                     $("<tr/>")
