@@ -131,6 +131,7 @@ $(function(){
             case "document":
                 return $("<a>").text("download").attr("href", "/app/document/read/contents?client=" + client + "&document_id=" + value["prompt_response"])                 
             default:
+                console.log("Unsupported prompt: " + value["prompt_type"])
                 console.log(value)
         }
     }
