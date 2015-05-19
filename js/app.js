@@ -127,10 +127,9 @@ $(function(){
                 return getMultiChoiceValue(value);  
             case "video":
             case "audio":
+            case "document"
                 return $("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"])
-            case "document":
-                return $("<a>").text("download").attr("href", "/app/document/read/contents?client=" + client + "&document_id=" + value["prompt_response"])                 
-            default:
+             default:
                 console.log("Unsupported prompt: " + value["prompt_type"])
                 console.log(value)
         }
