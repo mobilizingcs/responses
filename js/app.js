@@ -99,18 +99,11 @@ $(function(){
                 case "photo":
                     $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])
                     break;
-                case "video":
-                case "audio":
-                    $("<tr/>")
-                    .appendTo("#modaltbody")
-                    .append($("<td/>").text(value["prompt_text"]))
-                    .append($("<td/>").append($("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"]))) 
-                    break;  
                 default:
                     $("<tr/>")
                     .appendTo("#modaltbody")
                     .append($("<td/>").text(value["prompt_text"]))
-                    .append($("<td/>").text(getPromptValue(value)))             
+                    .append($("<td/>").append(getPromptValue(value)))             
             }
         })
         //alert(JSON.stringify(value.responses)) 
@@ -130,7 +123,10 @@ $(function(){
                 return getSingleChoiceValue(value);
             case "multi_choice":
             case "multi_choice_custom":
-                return getMultiChoiceValue(value);       
+                return getMultiChoiceValue(value);  
+            case "video":
+            case "audio":
+                return $("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"]) 
             default:
                 console.log(value)
         }
