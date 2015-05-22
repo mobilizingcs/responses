@@ -29,7 +29,7 @@ $(function(){
     if(!urn.match(/^urn/)){
         location.replace("../campaign_mgmt")
     } else {
-        oh.campaign.readall({urn:urn}).done(function(data){
+        oh.campaign.readall({campaign_urn_list:urn}).done(function(data){
             console.log(data)
             $("#pagetitle small").text(data[urn].name)
         })
