@@ -28,6 +28,8 @@ $(function(){
     //redirect to manager of no campaign is specified
     if(!urn.match(/^urn/)){
         location.replace("../campaign_mgmt")
+    } else {
+        $("#pagetitle small").text(urn)
     }
 
     $("#modalphoto img").on("error", function(){$(this).attr("src", "images/nophoto.jpg")});
@@ -108,7 +110,7 @@ $(function(){
             }
         })
         //alert(JSON.stringify(value.responses)) 
-        $(".modal").modal('show')       
+        $(".modal").modal({show:true})       
     }
 
     function getPromptValue(value){
