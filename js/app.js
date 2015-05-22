@@ -29,7 +29,10 @@ $(function(){
     if(!urn.match(/^urn/)){
         location.replace("../campaign_mgmt")
     } else {
-        $("#pagetitle small").text(urn)
+        oh.campaign.readall({urn:urn}).done(function(data){
+            console.log(data)
+            $("#pagetitle small").text(data[urn].name)
+        })
     }
 
     $("#modalphoto img").on("error", function(){$(this).attr("src", "images/nophoto.jpg")});
