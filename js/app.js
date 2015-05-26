@@ -112,6 +112,10 @@ $(function(){
         $(".modal-title").html("Response by <u>" + survey.user + "</u> at " + survey.timestamp);
         $("#modalphoto img").attr("src", "images/nophoto.jpg")
         $.each(survey.responses, function(key, value){
+            
+            // do not list NOT_DISPLAYED answers in the table
+            if(value["prompt_response"] == "NOT_DISPLAYED") return;
+
             if(value["prompt_type"] === "photo" && ["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) < 0){
                 $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])                   
             }
