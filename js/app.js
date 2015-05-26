@@ -100,18 +100,15 @@ $(function(){
         $(".modal-title").html("Response by <u>" + survey.user + "</u> at " + survey.timestamp);
         $("#modalphoto img").attr("src", "images/nophoto.jpg")
         $.each(survey.responses, function(key, value){
-            switch (value["prompt_type"]) {
-                case "photo":
-                    if(["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) < 0)
-                        $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])
-                    break;
-                default:
-                    $("<tr/>")
-                    .appendTo("#modaltbody")
-                    .append($("<td/>").text(value["prompt_text"]))
-                    .append($("<td/>").append(getPromptValue(value)))             
+            if(value["prompt_type"] === "photo" && ["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) < 0){
+                $("#modalphoto img").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])                   
             }
-        })
+            $("<tr/>")
+                .appendTo("#modaltbody")
+                .append($("<td/>").text(value["prompt_text"]))
+                .append($("<td/>").append(getPromptValue(value)))             
+            
+        });
         //alert(JSON.stringify(value.responses)) 
         $(".modal").modal({show:true})       
     }
@@ -133,7 +130,9 @@ $(function(){
             case "video":
             case "audio":
             case "document":
-                return $("<a>").text("download").attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"])
+                return $("<a>").text(value["prompt_type"]).attr("href", "/app/media/read?client=" + client + "&id=" + value["prompt_response"])
+            case "photo":
+                return $("<a>").text("photo").attr("href", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])                
              default:
                 console.log("Unsupported prompt: " + value["prompt_type"])
                 console.log(value)
