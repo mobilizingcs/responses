@@ -29,6 +29,7 @@ $(function(){
     if(!urn.match(/^urn/)){
         location.replace("../campaign_mgmt")
     } else {
+        $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
         oh.campaign.readall({campaign_urn_list:urn}).done(function(data){
             console.log(data)
             $("#pagetitle small").text(data[urn].name)
@@ -56,27 +57,38 @@ $(function(){
                 $("<td>").text(value.user).appendTo(tr);
                 $("<td>").text(value.survey_title).appendTo(tr);
 
-                /* shared/private switch */
-                var shared = $('<input type="checkbox" />');
-                $("<td>").appendTo(tr).append(shared);
-                shared.prop('checked', value.privacy_state == "shared").bootstrapToggle({
-                    size: "small", 
-                    onstyle: "success", 
-                    offstyle: "default", 
-                    on: "shared", 
-                    off: "private"
-                });
+                /* share button */
+                var sharebtn = $('<a href="#" class="btn sharebtn btn-primary" role="button">Private</a>');
+                $("<td>").appendTo(tr).append(sharebtn);
 
+                /* internal share state */
+                var sharestate = (value.privacy_state == "shared")
+                updateshare();
 
-
-                /* change event */
-                shared.change(function(){
-                    var state = shared.prop('checked');
-                    oh.response.update(urn, value.survey_key, state).fail(function(){
-                        shared.prop('checked', !state)
+                //shared button handler
+                sharebtn.click(function(e){
+                    e.preventDefault();
+                    sharestate = !sharestate;
+                    sharebtn.addClass("disabled")
+                    oh.response.update(urn, value.survey_key, sharestate).done(function(){
+                        //success, update gui
+                        updateshare()
+                    }).fail(function(){
+                        //update failed; revert internal state
+                        sharestate = !sharestate;
+                    }).always(function(){
+                        sharebtn.removeClass("disabled")
                     });
-                });
+                })
 
+                //update gui
+                function updateshare(){
+                    if(sharestate){
+                        sharebtn.removeClass("btn-primary").addClass("btn-success").text("Shared");
+                    } else {
+                        sharebtn.removeClass("btn-success").addClass("btn-primary").text("Private");
+                    }
+                }
 
                 /* delete button */
                 var delbtn = $('<button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> delete</button>').click(function(e){
