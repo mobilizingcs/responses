@@ -117,7 +117,8 @@ $(function(){
     }
 
     function makeRow(prompt_id, val){
-        return $("<tr>").append($("<td>").append($("<b>").text(prompt_id + ": ")).append(val))
+        var title = (prompt_id.length > 25) ? prompt_id.substring(0, 25) + "..." : prompt_id;
+        return $("<tr>").append($("<td>").append($("<b>").text(title + ": ")).append(val))
     }
 
     function getPromptValue(value){
