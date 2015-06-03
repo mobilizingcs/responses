@@ -18,3 +18,11 @@
 	color: black;
 	text-shadow: none;
 }
+
+.response-row {
+	margin-left: 65px;
+}
+
+.buttondiv{
+	margin-bottom: 10px;
+}

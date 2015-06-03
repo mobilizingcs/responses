@@ -1,81 +1,13 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en-US">
     <head>
-        <title>Response Manager</title>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-
-
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
-
-        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-        <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-
-        <link rel="stylesheet" href="css/app.css">
-        <script type="text/javascript" src="js/jquery-cookie.js"></script>
-        <script type="text/javascript" src="js/ohmage.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
-
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            var urn = window.location.hash.replace(/^[#]/, "")
+            window.location.href = "table.html#" + urn;
+        </script>
+        <title>Page Redirection</title>
     </head>
     <body>
-
-        <div class="container">
-            <div class="row">
-
-                <div class="span12 page-header">
-                    <a id="switchviewlink" href="media.html" class="disabled pull-right btn btn-default"><span class="glyphicon glyphicon-file"></span> Switch To Thumbnail View</a>
-
-                    <h1 id="pagetitle">Response Manager <small></small></h1>
-                </div>
-
-                <div class="col-md-10 col-md-offset-1" id="errordiv"></div>
-
-                <div class="span12">
-
-                    <table id="responsetable" class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Date</th>
-                                <th>Author</th>
-                                <th>Survey</th>
-                                <th>Shared</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="responsetablebody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                   <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Survey Response</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <div id="modalphoto">
-                            <img class="img-rounded" src="images/nophoto.jpg" alt="modal photo">
-                        </div>
-                  
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr><th>Question</th><th>Response</th></tr>
-                            </thead>
-                            <tbody id="modaltbody"></tbody>
-                         </table>
-                    </div>                                     
-                </div>
-            </div>
-        </div>
     </body>
 </html>
-
