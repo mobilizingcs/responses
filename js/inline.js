@@ -209,4 +209,53 @@ $(function(){
            scrollTop: 100
         }, 200);
     }
+
+    function share_all(){
+        $("tbody tr[role='row']").each(function(i){
+            var tr = $(this);
+            var surveydata = tr.data("surveydata");
+            var checkbox = tr.find(":checkbox");
+            var label = tr.find("span.label")
+            if(checkbox.is(':checked')){
+                oh.response.update(urn, surveydata.survey_key, true).done(function(){
+                    label.addClass("label-success").removeClass("label-default").text("shared");
+                });
+            }
+        });
+    }
+
+    function unshare_all(){
+        $("tbody tr[role='row']").each(function(i){
+            var tr = $(this);
+            var surveydata = tr.data("surveydata");
+            var checkbox = tr.find(":checkbox");
+            var label = tr.find("span.label")
+            if(checkbox.is(':checked')){
+                oh.response.update(urn, surveydata.survey_key, false).done(function(){
+                    label.addClass("label-default").removeClass("label-success").text("private");
+                });
+            }
+        });
+    }    
+
+    function delete_all(){
+        if(!confirm("Are you sure you want to delete these items? This cannot be undone!")) return;
+        $("tbody tr[role='row']").each(function(i){
+            var tr = $(this);
+            var surveydata = tr.data("surveydata");
+            var checkbox = tr.find(":checkbox");
+            var label = tr.find("span.label")
+            if(checkbox.is(':checked')){
+                oh.response.delete(urn, surveydata.survey_key).done(function(){
+                    tr.hide("slow", function(){
+                        console.log("Response " + value.survey_key + " deleted!");
+                    });
+                });
+            }
+        });
+    }
+
+    $("#share_all_btn").click(share_all)
+    $("#unshare_all_btn").click(unshare_all)
+    $("#delete_all_btn").click(delete_all)
 });
