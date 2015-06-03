@@ -190,8 +190,10 @@ $(function(){
             var el = $('<div />').addClass("col-sm-6").addClass("col-lg-4").appendTo(row);
             el.append($("<h5/>").text(value["prompt_text"]));
             
-            if(value["prompt_type"] === "photo" && ["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) < 0){
-                el.append($("<img />").attr("src", "/app/image/read?client=" + client + "&id=" + value["prompt_response"]))                 
+            if(value["prompt_type"] === "photo" && value["prompt_response"] != "SKIPPED"){
+                var a = $("<a>").attr("target", "_blank").attr("href", "/app/image/read?client=" + client + "&id=" + value["prompt_response"]).appendTo(el);
+                var img = $("<img>").addClass("photo-icon").addClass("img-thumbnail").attr("src", "/app/image/read?size=icon&client=" + client + "&id=" + value["prompt_response"])
+                img.appendTo(a).on("error", function(){$(this).attr("src", "images/nophoto.jpg")});
             } else {
                 el.append(getPromptValue(value));
             }          

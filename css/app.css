@@ -26,3 +26,7 @@
 .buttondiv{
 	margin-bottom: 10px;
 }
+
+.photo-icon{
+	max-width: 128px;
+}
