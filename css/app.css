@@ -44,6 +44,10 @@ tr[role=row] {
 	cursor: pointer;
 }
 
+td.maptd {
+	cursor: auto;
+}
+
 tbody tr[role=row]:hover {
 	background-color: #EEEEEE;
 }

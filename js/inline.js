@@ -68,7 +68,7 @@ $(function(){
 
 
                 /* Google map link */
-                var maptd = $("<td>").appendTo(tr).click(function(e){
+                var maptd = $("<td>").addClass("maptd").addClass("text-center").appendTo(tr).click(function(e){
                     e.stopPropagation();
                 });
                 if(value.latitude){
