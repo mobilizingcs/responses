@@ -70,6 +70,23 @@ $(function(){
         });
     });
 
+    function getPromptIcon(value){
+        var types = {
+             "number" : "sound-5-1",
+             "text" : "text-size",
+             "photo" : "picture",
+             "timestamp" : "time",
+             "single_choice" : "menu-hamburger",
+             "multi-choice" : "th",
+             "audio" : "music",
+             "video" : "facetime-video",
+             "single_choice_custom" : "menu-hamburger",
+             "multi_choice_custom" : "th",
+             "message" : "info-sign"
+        };
+        return types[value] || alert("invalid icon for : " + value);
+    }
+
     function getPromptValue(value){
         if(["SKIPPED", "NOT_DISPLAYED"].indexOf(value["prompt_response"]) > -1)
             return value["prompt_response"];
@@ -188,7 +205,8 @@ $(function(){
             // do not list NOT_DISPLAYED answers in the table
             if(value["prompt_response"] == "NOT_DISPLAYED") return;
             var el = $('<div />').addClass("col-sm-6").addClass("col-lg-4").appendTo(row);
-            el.append($("<h5/>").text(value["prompt_text"]));
+            var icon = $("<span />").addClass("glyphicon").addClass("glyphicon-" + getPromptIcon(value["prompt_type"]))
+            el.append($("<h5/>").text(" " + value["prompt_text"]).prepend(icon));
             
             if(value["prompt_type"] === "photo" && value["prompt_response"] != "SKIPPED"){
                 var a = $("<a>").attr("target", "_blank").attr("href", "/app/image/read?client=" + client + "&id=" + value["prompt_response"]).appendTo(el);

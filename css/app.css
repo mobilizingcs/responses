@@ -30,3 +30,12 @@
 .photo-icon{
 	max-width: 128px;
 }
+
+h5 {
+	font-style: italic;
+	font-weight: bold;
+}
+
+tr[role=row] {
+	cursor: pointer;
+}
