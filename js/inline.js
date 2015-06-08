@@ -34,7 +34,7 @@ $(function(){
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
         oh.campaign.readall({campaign_urn_list:urn}).done(function(data){
-            console.log(data)
+            //console.log(data)
             $("#pagetitle small").text(data[urn].name)
         })
     }
@@ -270,14 +270,18 @@ $(function(){
         if(!confirm("Are you sure you want to delete these items? This cannot be undone!")) return;
         $("tbody tr[role='row']").each(function(i){
             var tr = $(this);
+            var row = table.row(tr);
             var surveydata = tr.data("surveydata");
             var checkbox = tr.find(":checkbox");
             var label = tr.find("span.label")
             if(checkbox.is(':checked')){
+      
+                if(row.child.isShown()){
+                    tr.trigger("click")
+                }
+
                 oh.response.delete(urn, surveydata.survey_key).done(function(){
-                    tr.hide("slow", function(){
-                        console.log("Response " + value.survey_key + " deleted!");
-                    });
+                    tr.hide("slow");
                 });
             }
         });
