@@ -44,7 +44,7 @@ tr[role=row] {
 	cursor: pointer;
 }
 
-tr[role=row]:hover {
+tbody tr[role=row]:hover {
 	background-color: #EEEEEE;
 }
 

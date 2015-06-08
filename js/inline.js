@@ -65,6 +65,15 @@ $(function(){
                 } else {
                     $("<td>").appendTo(tr).append('<span class="label label-default">private</span>');
                 }
+
+
+                /* Google map link */
+                var maptd = $("<td>").appendTo(tr).click(function(e){
+                    e.stopPropagation();
+                });
+                if(value.latitude){
+                   $("<a/>").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
+                }
             });
             initTable();
         });
@@ -137,7 +146,7 @@ $(function(){
             "order": [[ 1, "desc" ]],
             "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
             "aoColumnDefs": [
-               { 'bSortable': false, 'aTargets': [ 0 ] }
+               { 'bSortable': false, 'aTargets': [ 0, 5] }
             ]
         });
 
