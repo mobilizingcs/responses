@@ -74,6 +74,11 @@ $(function(){
                 if(value.latitude){
                    $("<a/>").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
                 }
+
+                /* hidden data column for searching. This can be slow */
+                $("<td>").appendTo(tr).text(jQuery.map(value.responses, function(resp){
+                    return getPromptValue(resp);
+                }).join(" "));
             });
             initTable();
         });
@@ -119,7 +124,6 @@ $(function(){
                 return $("<a>").text("photo").attr("href", "/app/image/read?client=" + client + "&id=" + value["prompt_response"])                
              default:
                 console.log("Unsupported prompt: " + value["prompt_type"])
-                console.log(value)
         }
     }
 
@@ -146,7 +150,9 @@ $(function(){
             "order": [[ 1, "desc" ]],
             "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
             "aoColumnDefs": [
-               { 'bSortable': false, 'aTargets': [ 0, 5] }
+               { 'bSortable': false, 'aTargets': [ 0, 5] },
+               { 'bSearchable': false, 'aTargets': [ 0, 5] },
+               { 'bVisible' : false, 'aTargets' : [6]}
             ]
         });
 
