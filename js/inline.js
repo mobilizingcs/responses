@@ -77,12 +77,13 @@ $(function(){
              "photo" : "picture",
              "timestamp" : "time",
              "single_choice" : "menu-hamburger",
-             "multi-choice" : "th",
+             "multi_choice" : "th",
              "audio" : "music",
              "video" : "facetime-video",
              "single_choice_custom" : "menu-hamburger",
              "multi_choice_custom" : "th",
-             "message" : "info-sign"
+             "message" : "info-sign",
+             "document" : "file"
         };
         return types[value] || alert("invalid icon for : " + value);
     }
