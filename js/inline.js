@@ -150,7 +150,7 @@ $(function(){
             "order": [[ 1, "desc" ]],
             "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
             "aoColumnDefs": [
-               { 'bSortable': false, 'aTargets': [ 0, 5] },
+               { 'bSortable': false, 'aTargets': [ 0, 5, 6] },
                { 'bSearchable': false, 'aTargets': [ 0, 5] },
                { 'bVisible' : false, 'aTargets' : [6]}
             ]
