@@ -33,56 +33,63 @@ $(function(){
         location.replace("../campaign_mgmt")
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
-        oh.campaign.readall({campaign_urn_list:urn}).done(function(data){
-            //console.log(data)
-            $("#pagetitle small").text(data[urn].name)
-        })
-    }
+        oh.campaign.readall({campaign_urn_list:urn}).done(function(campaign_metadata){
+            var user_roles = campaign_metadata[urn]["user_roles"];
+            var user_is_admin = user_roles.indexOf("supervisor") > -1
+            var campaign_name = campaign_metadata[urn].name;
 
-    //populate table
-    oh.user.whoami().done(function(username){
-        oh.response.read(urn).done(function(data){
-            $.each(data, function(i, value){
+            //make title pretty
+            $("#pagetitle small").text(campaign_name)
 
-                //to filter responses from current user:
-                //if(username != value.user) return;
+            //populate table
+            oh.user.whoami().done(function(username){
+                oh.response.read(urn).done(function(data){
+                    $.each(data, function(i, value){
 
-                var tr = $("<tr>").appendTo(tbody).data("surveydata", value);
-                var td = $("<td>").appendTo(tr).click(function(e){
-                    e.stopPropagation();
+                        //to filter responses from current user:
+                        //if(username != value.user) return;
+
+                        var tr = $("<tr>").appendTo(tbody).data("surveydata", value);
+                        var td = $("<td>").appendTo(tr).click(function(e){
+                            e.stopPropagation();
+                        });
+
+                        if(user_is_admin || username == value.user){
+                            var checkbox = $('<input class="rowcheckbox" type="checkbox">').appendTo(td).click(function(e){
+                                $("#checkboxheader").prop("indeterminate", true);
+                            });
+                        }
+
+                        $("<td>").text(value.timestamp).appendTo(tr);
+                        $("<td>").text(value.user).appendTo(tr);
+                        $("<td>").text(value.survey_title).appendTo(tr);
+
+                        /* share button */
+                        if(value.privacy_state == "shared") {
+                            $("<td>").appendTo(tr).append('<span class="label label-success">shared</span>');
+                        } else {
+                            $("<td>").appendTo(tr).append('<span class="label label-default">private</span>');
+                        }
+
+
+                        /* Google map link */
+                        var maptd = $("<td>").addClass("maptd").addClass("text-center").appendTo(tr).click(function(e){
+                            e.stopPropagation();
+                        });
+                        if(value.latitude){
+                           $("<a/>").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
+                        }
+
+                        /* hidden data column for searching. This can be slow */
+                        $("<td>").appendTo(tr).text(jQuery.map(value.responses, function(resp){
+                            return getPromptValue(resp);
+                        }).join(" "));
+                    });
+                    initTable();
                 });
-                var checkbox = $('<input class="rowcheckbox" type="checkbox">').appendTo(td).click(function(e){
-                    $("#checkboxheader").prop("indeterminate", true);
-                });
-
-                $("<td>").text(value.timestamp).appendTo(tr);
-                $("<td>").text(value.user).appendTo(tr);
-                $("<td>").text(value.survey_title).appendTo(tr);
-
-                /* share button */
-                if(value.privacy_state == "shared") {
-                    $("<td>").appendTo(tr).append('<span class="label label-success">shared</span>');
-                } else {
-                    $("<td>").appendTo(tr).append('<span class="label label-default">private</span>');
-                }
-
-
-                /* Google map link */
-                var maptd = $("<td>").addClass("maptd").addClass("text-center").appendTo(tr).click(function(e){
-                    e.stopPropagation();
-                });
-                if(value.latitude){
-                   $("<a/>").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
-                }
-
-                /* hidden data column for searching. This can be slow */
-                $("<td>").appendTo(tr).text(jQuery.map(value.responses, function(resp){
-                    return getPromptValue(resp);
-                }).join(" "));
             });
-            initTable();
         });
-    });
+    }
 
     function getPromptIcon(value){
         var types = {
