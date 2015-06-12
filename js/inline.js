@@ -223,7 +223,13 @@ $(function(){
 
     function makerow(rowdata, survey){
         var row = $('<div/>').addClass('row').addClass("response-row");
-        $.each(survey.responses, function(key, value){
+        var responses = $.map(survey.responses, function(value) {
+            return value;
+        }).sort(function(a, b){
+            return (a.prompt_index > b.prompt_index);
+        });
+
+        $.each(responses, function(index, value){
             
             // do not list NOT_DISPLAYED answers in the table
             if(value["prompt_response"] == "NOT_DISPLAYED") return;
