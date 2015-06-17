@@ -42,50 +42,57 @@ $(function(){
             $("#pagetitle small").text(campaign_name)
 
             //populate table
+            updateProgress(10, "Getting user info...")
             oh.user.whoami().done(function(username){
+                updateProgress(20, "Downloading responses...")
                 oh.response.read(urn).done(function(data){
-                    $.each(data, function(i, value){
+                    updateProgress(40, "Building table...")
+                    setTimeout(function(){
+                        $.each(data, function(i, value){
 
-                        //to filter responses from current user:
-                        //if(username != value.user) return;
+                            //to filter responses from current user:
+                            //if(username != value.user) return;
 
-                        var tr = $("<tr>").appendTo(tbody).data("surveydata", value);
-                        var td = $("<td>").appendTo(tr).click(function(e){
-                            e.stopPropagation();
-                        });
-
-                        if(user_is_admin || username == value.user){
-                            var checkbox = $('<input class="rowcheckbox" type="checkbox">').appendTo(td).click(function(e){
-                                $("#checkboxheader").prop("indeterminate", true);
+                            var tr = new_el("tr").appendTo(tbody).data("surveydata", value);
+                            var td = new_el("td").appendTo(tr).click(function(e){
+                                e.stopPropagation();
                             });
-                        }
 
-                        $("<td>").text(value.timestamp).appendTo(tr);
-                        $("<td>").text(value.user).appendTo(tr);
-                        $("<td>").text(value.survey_title).appendTo(tr);
+                            if(user_is_admin || username == value.user){
+                                var checkbox = new_el("input").attr("type", "checkbox").addClass("rowcheckbox").appendTo(td).click(function(e){
+                                    $("#checkboxheader").prop("indeterminate", true);
+                                });
+                            }
 
-                        /* share button */
-                        if(value.privacy_state == "shared") {
-                            $("<td>").appendTo(tr).append('<span class="label label-success">shared</span>');
-                        } else {
-                            $("<td>").appendTo(tr).append('<span class="label label-default">private</span>');
-                        }
+                            new_el("td").text(value.timestamp).appendTo(tr);
+                            new_el("td").text(value.user).appendTo(tr);
+                            new_el("td").text(value.survey_title).appendTo(tr);
+
+                            /* share button */
+                            if(value.privacy_state == "shared") {
+                                new_el("td").appendTo(tr).append('<span class="label label-success">shared</span>');
+                            } else {
+                                new_el("td").appendTo(tr).append('<span class="label label-default">private</span>');
+                            }
 
 
-                        /* Google map link */
-                        var maptd = $("<td>").addClass("maptd").addClass("text-center").appendTo(tr).click(function(e){
-                            e.stopPropagation();
+                            /* Google map link */
+                            var maptd = $("<td>").addClass("maptd").addClass("text-center").appendTo(tr).click(function(e){
+                                e.stopPropagation();
+                            });
+                            if(value.latitude){
+                               new_el("a").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
+                            }
+
+                            /* hidden data column for searching. This can be slow */
+                            new_el("td").appendTo(tr).text(jQuery.map(value.responses, function(resp){
+                                return getPromptValue(resp);
+                            }).join(" "));
                         });
-                        if(value.latitude){
-                           $("<a/>").appendTo(maptd).html('<span class="glyphicon glyphicon-map-marker"></span>').attr("target", "_blank").attr("href", "http://maps.google.com/maps?q=" + value.latitude + "," + value.longitude);
-                        }
-
-                        /* hidden data column for searching. This can be slow */
-                        $("<td>").appendTo(tr).text(jQuery.map(value.responses, function(resp){
-                            return getPromptValue(resp);
-                        }).join(" "));
-                    });
-                    initTable();
+                        updateProgress(90, "Loading table...")
+                        initTable();
+                        $("#progressdiv").hide()
+                    }, 500);
                 });
             });
         });
@@ -305,6 +312,14 @@ $(function(){
             }
         });
     }
+
+    function new_el(what){
+        return $(document.createElement(what))
+    }
+
+    updateProgress = _.throttle(function(pct, msg){
+        return $(".progress-bar").css("width", + pct + "%").text(msg);
+    }, 300);    
 
     $("#share_all_btn").click(share_all)
     $("#unshare_all_btn").click(unshare_all)
