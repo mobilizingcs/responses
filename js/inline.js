@@ -30,6 +30,7 @@ $(function(){
 
     //redirect to manager of no campaign is specified
     if(!urn.match(/^urn/)){
+        console.log("Invalid URN: " + urn)
         location.replace("../campaign_mgmt")
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
