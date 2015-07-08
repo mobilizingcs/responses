@@ -175,11 +175,11 @@ $(function(){
         /* Custom filtering function which will search data in column four between two values */
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
-                var time = Date.parse(data[1]);
+                var time = Date.parse(data[1].replace(" ", "T"));
                 var min = Date.parse($("#mindate").val());
                 if (min && time && time < min) return false;
 
-                var max = Date.parse($("#maxdate").val() + " 23:55");
+                var max = Date.parse($("#maxdate").val() + "T23:55");
                 if (max && time && time > max) return false;
                 
                 return true;
