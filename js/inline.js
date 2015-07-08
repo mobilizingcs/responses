@@ -199,8 +199,14 @@ $(function(){
         table.on( 'order', resettable);
         table.on( 'search', resettable);
 
-        $("#expand_all").click(expand_all)
-        $("#collapse_all").click(collapse_all)
+        $("#expand_all").click(function(e){
+            expand_all();
+            this.blur()
+        })
+        $("#collapse_all").click(function(e){
+            collapse_all();
+            this.blur()
+        });
     }
 
     function expand_all(){
@@ -326,3 +332,7 @@ $(function(){
     $("#unshare_all_btn").click(unshare_all)
     $("#delete_all_btn").click(delete_all)
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

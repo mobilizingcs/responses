@@ -5,12 +5,12 @@
         <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
 
         <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 
@@ -40,19 +40,28 @@
                 <div class="span12">
 
                     <div class="buttondiv">
-                        <div class="btn-group" role="group">
-                            <button id="collapse_all" type="button" class="btn btn-primary">Collapse All</button>
-                            <button id="expand_all" type="button" class="btn btn-primary">Expand All</button>
-                        </div>  
 
-                        <div class="div pull-right">
-                            <button id="share_all_btn" type="button" class="btn btn-primary">Share Selected</button>
-                            <button id="unshare_all_btn" type="button" class="btn btn-primary">Unshare Selected</button>
-                            <button id="delete_all_btn" type="button" class="btn btn-danger">Delete Selected</button>
-                        </div> 
+                        <div class="btn-group" role="group">
+                          <button type="button" id="expand_all" class="btn btn-default" data-toggle="tooltip" title="Expand All Rows">
+                            <span class="glyphicon glyphicon-plus-sign"></span></button>
+                          <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip"title="Collapse All Rows">
+                            <span class="glyphicon glyphicon-minus-sign"></span></button>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Responses
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok"></span> Share Selected</a></li>
+                                <li><a id="unshare_all_btn" href="#"><span class="glyphicon glyphicon-remove"></span> Unshare Selected</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a id="delete_all_btn" href="#"><span class="glyphicon glyphicon-trash"></span> Delete Selected</a></li>
+                            </ul>
+                          </div>
+                        </div>
                     </div>                                                              
 
-                    <table id="responsetable" class="table">
+                    <table id="responsetable" class="table col-md-10">
                         <thead>
                             <tr>
                                 <th><input id="checkboxheader" type="checkbox"></th>
@@ -72,4 +81,3 @@
         </div>
     </body>
 </html>
-
