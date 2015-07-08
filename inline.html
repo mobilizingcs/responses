@@ -1,83 +1,77 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>Response Manager</title>
-        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<head>
+    <title>Response Manager</title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
 
-        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 
-        <link rel="stylesheet" href="css/app.css">
-        <script type="text/javascript" src="js/jquery-cookie.js"></script>
-        <script type="text/javascript" src="js/ohmage.js"></script>
-        <script type="text/javascript" src="js/inline.js"></script>
+    <link rel="stylesheet" href="css/app.css">
+    <script type="text/javascript" src="js/jquery-cookie.js"></script>
+    <script type="text/javascript" src="js/ohmage.js"></script>
+    <script type="text/javascript" src="js/inline.js"></script>
 
-    </head>
-    <body>
+</head>
+<body>
 
-        <div class="container">
-            <div class="row">
+    <div class="container">
+        <div class="row">
 
-                <div class="span12 page-header">
-                    <h1 id="pagetitle">Response Manager <small></small></h1>
-                </div>
+            <div class="span12 page-header">
+                <h1 id="pagetitle">Response Manager <small></small></h1>
+            </div>
 
-                <div class="col-md-10 col-md-offset-1" id="errordiv"></div>
+            <div class="col-md-10 col-md-offset-1" id="errordiv"></div>
 
-                <div id="progressdiv" class="col-md-12">
-                    <div class="progress">
-                        <div class="active progress-bar progress-bar-success progress-bar-striped" role="progressbar">Loading user info... </div>
-                    </div>
-                </div>
-
-                <div class="span12">
-
-                    <div class="buttondiv">
-
-                        <div class="btn-group" role="group">
-                          <button type="button" id="expand_all" class="btn btn-default" data-toggle="tooltip" title="Expand All Rows">
-                            <span class="glyphicon glyphicon-plus-sign"></span></button>
-                          <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip"title="Collapse All Rows">
-                            <span class="glyphicon glyphicon-minus-sign"></span></button>
-                          <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Responses
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok"></span> Share Selected</a></li>
-                                <li><a id="unshare_all_btn" href="#"><span class="glyphicon glyphicon-remove"></span> Unshare Selected</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a id="delete_all_btn" href="#"><span class="glyphicon glyphicon-trash"></span> Delete Selected</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                    </div>                                                              
-
-                    <table id="responsetable" class="table col-md-10">
-                        <thead>
-                            <tr>
-                                <th><input id="checkboxheader" type="checkbox"></th>
-                                <th>Date</th>
-                                <th>Author</th>
-                                <th>Survey</th>
-                                <th>Shared</th>
-                                <th>Location</th>
-                                <th>Hidden</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="responsetablebody"></tbody>
-                    </table>
+            <div id="progressdiv" class="col-md-12">
+                <div class="progress">
+                    <div class="active progress-bar progress-bar-success progress-bar-striped" role="progressbar">Loading user info... </div>
                 </div>
             </div>
+
+            <div class="buttondiv">
+                <div class="btn-group" role="group">
+                    <button type="button" id="expand_all" class="btn btn-default" data-toggle="tooltip" title="Expand All Rows">
+                        <span class="glyphicon glyphicon-plus-sign"></span></button>
+                    <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip"title="Collapse All Rows">
+                        <span class="glyphicon glyphicon-minus-sign"></span></button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Responses <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok"></span> Share Selected</a></li>
+                            <li><a id="unshare_all_btn" href="#"><span class="glyphicon glyphicon-remove"></span> Unshare Selected</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="delete_all_btn" href="#"><span class="glyphicon glyphicon-trash"></span> Delete Selected</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>                                                           
+
+            <table id="responsetable" class="table col-md-10">
+                <thead>
+                    <tr>
+                        <th><input id="checkboxheader" type="checkbox"></th>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Survey</th>
+                        <th>Shared</th>
+                        <th>Location</th>
+                        <th>Hidden</th>
+                    </tr>
+                </thead>
+
+                <tbody id="responsetablebody"></tbody>
+            </table>
         </div>
-    </body>
+    </div>
+</body>
 </html>
