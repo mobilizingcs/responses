@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="span12 page-header">
+            <div class="page-header">
                 <h1 id="pagetitle">Response Manager <small></small></h1>
             </div>
 
@@ -43,53 +43,55 @@
             <div class="buttondiv pull-left">
                 <div class="btn-group" role="group">
                     <button type="button" id="expand_all" class="btn btn-default" data-toggle="tooltip" title="Expand All Rows">
-                        <span class="glyphicon glyphicon-plus-sign"></span></button>
-                        <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip" title="Collapse All Rows">
-                            <span class="glyphicon glyphicon-minus-sign"></span></button>
-                            <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Responses <span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
-                                        <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok text-success"></span> Share Selected</a></li>
-                                        <li><a id="unshare_all_btn" href="#"><span class="glyphicon glyphicon-remove"></span> Unshare Selected</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a id="delete_all_btn" href="#"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Selected</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>   
-
-                        <div class="pull-right">
-                            <form class="form-inline">
-                              <div class="form-group">
-                                <label for="exampleInputName2">From: </label>
-                                <input class="form-control datepicker" id="mindate">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputEmail2">To: </label>
-                                <input class="form-control datepicker" id="maxdate">
-                            </div>
-                            <!--<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reload</button>-->
-                        </form>            
-
-                    </div>                                            
-
-                    <table id="responsetable" class="table col-md-10">
-                        <thead>
-                            <tr>
-                                <th><input id="checkboxheader" type="checkbox"></th>
-                                <th>Date</th>
-                                <th>Author</th>
-                                <th>Survey</th>
-                                <th>Shared</th>
-                                <th>Location</th>
-                                <th>Hidden</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="responsetablebody"></tbody>
-                    </table>
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                    </button>
+                    <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip" title="Collapse All Rows">
+                            <span class="glyphicon glyphicon-minus-sign"></span>
+                    </button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Responses <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok text-success"></span> Share Selected</a></li>
+                            <li><a id="unshare_all_btn" href="#"><span class="glyphicon glyphicon-remove"></span> Unshare Selected</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a id="delete_all_btn" href="#"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Selected</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </body>
-        </html>
+            </div>   
+
+            <div class="pull-right">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2">From: </label>
+                        <input class="form-control datepicker" id="mindate">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">To: </label>
+                        <input class="form-control datepicker" id="maxdate">
+                    </div>
+                    <!--<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reload</button>-->
+                </form>            
+            </div>                                            
+
+            <table id="responsetable" class="table">
+                <thead>
+                    <tr>
+                        <th><input id="checkboxheader" type="checkbox"></th>
+                        <th>Date</th>
+                        <th>Author</th>
+                        <th>Survey</th>
+                        <th>Shared</th>
+                        <th>Location</th>
+                        <th>Hidden</th>
+                    </tr>
+                </thead>
+
+                <tbody id="responsetablebody"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
