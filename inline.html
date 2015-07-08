@@ -43,14 +43,14 @@
             <div class="buttondiv pull-left">
                 <div class="btn-group" role="group">
                     <button type="button" id="expand_all" class="btn btn-default" data-toggle="tooltip" title="Expand All Rows">
-                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span class="glyphicon glyphicon-plus-sign text-primary"></span>
                     </button>
                     <button type="button" id="collapse_all" class="btn btn-default" data-toggle="tooltip" title="Collapse All Rows">
-                            <span class="glyphicon glyphicon-minus-sign"></span>
+                            <span class="glyphicon glyphicon-minus-sign text-primary"></span>
                     </button>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            Responses <span class="caret"></span>
+                            <span class="text-danger">Responses</span> <span class="caret text-danger"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a id="share_all_btn" href="#"><span class="glyphicon glyphicon-ok text-success"></span> Share Selected</a></li>
@@ -60,6 +60,9 @@
                         </ul>
                     </div>
                 </div>
+                <a id="export_button" type="button" class="btn btn-default" data-toggle="tooltip" title="Export Data" href="#">
+                    <span class="glyphicon glyphicon-file text-success"></span>
+                </a>
             </div>   
 
             <div class="pull-right">

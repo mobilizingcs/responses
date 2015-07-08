@@ -34,6 +34,7 @@ $(function(){
         location.replace("../campaign_mgmt")
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
+        $("#export_button").attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")
         oh.campaign.readall({campaign_urn_list:urn}).done(function(campaign_metadata){
             var user_roles = campaign_metadata[urn]["user_roles"];
             var user_is_admin = user_roles.indexOf("supervisor") > -1
@@ -185,13 +186,13 @@ $(function(){
             }
         );
 
-        $('.datepicker').datepicker({
+        $('.datepicker').text("").datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,
             clearBtn: true
         }).change( function() {
             table.draw();
-        });        
+        });
 
         // Add event listener for opening and closing details
         $('#responsetable').on('click', 'tbody tr', function () {
@@ -203,8 +204,7 @@ $(function(){
                 // This row is already open - close it
                 row.child.hide();
                 tr.removeClass('shown');
-            }
-            else {
+            } else {
                 // Open this row
                 row.child( makerow(row.data(), tr.data("surveydata"))).show();
                 tr.addClass('shown');
