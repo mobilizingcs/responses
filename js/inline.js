@@ -176,11 +176,14 @@ $(function(){
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 var time = Date.parse(data[1].replace(" ", "T"));
-                var min = Date.parse($("#mindate").val());
-                if (min && time && time < min) return false;
+                if(!time) return true;
 
-                var max = Date.parse($("#maxdate").val() + "T23:55");
-                if (max && time && time > max) return false;
+                var min = Date.parse($("#mindate").val());
+                if (min && time < min) return false;
+
+                var maxtxt = $("#maxdate").val();
+                var max = Date.parse(maxtxt + "T23:55");
+                if (maxtxt && max && time > max) return false;
                 
                 return true;
             }
