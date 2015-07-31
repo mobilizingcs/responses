@@ -66,10 +66,10 @@ $(function(){
                                 });
                             }
 
-                            new_el("td").text(value.timestamp).appendTo(tr);
-                            new_el("td").text(value.user).appendTo(tr);
                             new_el("td").text(value.survey_title).appendTo(tr);
-
+                            new_el("td").text(value.user).appendTo(tr);
+                            new_el("td").text(value.timestamp).appendTo(tr);
+                            
                             /* share button */
                             if(value.privacy_state == "shared") {
                                 new_el("td").appendTo(tr).append('<span class="label label-success">shared</span>');
