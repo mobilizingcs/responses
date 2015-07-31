@@ -37,7 +37,7 @@ $(function(){
         $("#export_button").attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")
         oh.campaign.readall({campaign_urn_list:urn}).done(function(campaign_metadata){
             var user_roles = campaign_metadata[urn]["user_roles"];
-            var user_is_admin = user_roles.indexOf("supervisor") > -1
+            var user_is_supervisor = user_roles.indexOf("supervisor") > -1
             var campaign_name = campaign_metadata[urn].name;
 
             //make title pretty
@@ -60,7 +60,7 @@ $(function(){
                                 e.stopPropagation();
                             });
 
-                            if(user_is_admin || username == value.user){
+                            if(user_is_supervisor || username == value.user){
                                 var checkbox = new_el("input").attr("type", "checkbox").addClass("rowcheckbox").appendTo(td).click(function(e){
                                     $("#checkboxheader").prop("indeterminate", true);
                                 });
