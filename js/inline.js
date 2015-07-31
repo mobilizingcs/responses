@@ -45,7 +45,9 @@ $(function(){
 
             //populate table
             updateProgress(10, "Getting user info...")
-            oh.user.whoami().done(function(username){
+            oh.user.info().done(function(userdata){
+                var username = Object.keys(userdata)[0];
+                var user_is_admin = userdata[username].permissions.is_admin;
                 updateProgress(20, "Downloading responses...")
                 oh.response.read(urn).done(function(data){
                     updateProgress(40, "Building table...")
@@ -60,7 +62,7 @@ $(function(){
                                 e.stopPropagation();
                             });
 
-                            if(user_is_supervisor || username == value.user){
+                            if(user_is_admin || user_is_supervisor || username == value.user){
                                 var checkbox = new_el("input").attr("type", "checkbox").addClass("rowcheckbox").appendTo(td).click(function(e){
                                     $("#checkboxheader").prop("indeterminate", true);
                                 });
