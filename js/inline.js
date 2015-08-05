@@ -177,7 +177,7 @@ $(function(){
         /* Custom filtering function which will search data in column four between two values */
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
-                var time = Date.parse(data[1].replace(" ", "T"));
+                var time = Date.parse(data[3].replace(" ", "T"));
                 if(!time) return true;
 
                 var min = Date.parse($("#mindate").val());
