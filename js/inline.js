@@ -31,7 +31,7 @@ $(function(){
     //redirect to manager of no campaign is specified
     if(!urn.match(/^urn/)){
         console.log("Invalid URN: " + urn)
-        location.replace("../campaign_mgmt")
+        location.replace("../campaigns")
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
         $("#export_button").attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")

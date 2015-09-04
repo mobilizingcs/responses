@@ -27,7 +27,7 @@ $(function(){
 
     //redirect to manager of no campaign is specified
     if(!urn.match(/^urn/)){
-        location.replace("../campaign_mgmt")
+        location.replace("../campaigns")
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
         oh.campaign.readall({campaign_urn_list:urn}).done(function(data){
