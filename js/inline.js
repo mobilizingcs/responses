@@ -35,10 +35,13 @@ $(function(){
     } else {
         $("#switchviewlink").removeClass("disabled").attr("href", "media.html#" + urn)
         $("#export_button").attr("href", "../../app/survey_response/read?campaign_urn=" + urn + "&client=manager&user_list=urn:ohmage:special:all&prompt_id_list=urn:ohmage:special:all&output_format=csv&sort_oder=timestamp&column_list=urn:ohmage:user:id,urn:ohmage:context:timestamp,urn:ohmage:prompt:response,urn:ohmage:context:location:latitude,urn:ohmage:context:location:longitude&suppress_metadata=true")
-        oh.campaign.readall({campaign_urn_list:urn}).done(function(campaign_metadata){
-            var user_roles = campaign_metadata[urn]["user_roles"];
+        oh.campaign.readall({campaign_urn_list:urn}).done(function(campaign_data){
+            var user_roles = campaign_data[urn]["user_roles"];
             var user_is_supervisor = user_roles.indexOf("supervisor") > -1
-            var campaign_name = campaign_metadata[urn].name;
+            var campaign_name = campaign_data[urn].name;
+
+            //check if the campaign is in the public class
+            warn_if_public(campaign_data[urn].classes);
 
             //make title pretty
             $("#pagetitle small").text(campaign_name)
@@ -99,6 +102,15 @@ $(function(){
                     }, 500);
                 });
             });
+        });
+    }
+
+    function warn_if_public(classes){
+        oh.config.read().done(function(res){
+            var pubclass = res.public_class_id;
+            if(pubclass && classes.indexOf(pubclass) > -1){
+                message("This campaign is publicly readable!", "danger")
+            }
         });
     }
 
