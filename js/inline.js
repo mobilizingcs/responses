@@ -109,7 +109,7 @@ $(function(){
         oh.config.read().done(function(res){
             var pubclass = res.public_class_id;
             if(pubclass && classes.indexOf(pubclass) > -1){
-                message("This campaign is publicly readable!", "danger")
+                message("This campaign is publicly readable!", "warning")
             }
         });
     }
