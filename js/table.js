@@ -1,7 +1,7 @@
 $(function(){
 
     //initiate the client
-    var client = "responsetool"
+    var client = "response"
     var oh = Ohmage("/app", client)
 
     //debugging
